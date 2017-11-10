@@ -113,23 +113,35 @@ namespace Dame2._0
             {
                 if (bauer == "bauerblau")
                 {
+                    //alten Bauer entfernen
+                    firstBtn.Image = null;
+                    firstBtn.Tag = "Black";
+
+                    //neuen Bauer einsetzen
                     btn.Image = Properties.Resources.bauerblau;
-                    firstBtn = null;
                     btn.Tag = "bauerblau";
+
+                    //zurücksetzen der Variabeln
+                    firstBtn = null;                   
                     bauer = "";
+                    
                 }
                 if (bauer == "bauerrot")
                 {
+                    //alten Bauer entfernen
+                    firstBtn.Image = null;
+                    firstBtn.Tag = "Black";
+
+                    //neuen Bauer einsetzen
                     btn.Image = Properties.Resources.bauerrot;
                     firstBtn = null;
+
+                    //zurücksetzen der Variabeln
                     bauer = "";
                     btn.Tag = "bauerrot";
                 }
-
-             //   btn.Tag = "black";
-             //   firstBtn = null;
-              //  btn.BackColor = Color.Black;
-             //   btn.Image = null;
+                
+             
 
             }
 
