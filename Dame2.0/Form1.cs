@@ -13,6 +13,7 @@ namespace Dame2._0
 {
     public partial class Form1 : Form
     {
+        private static Button firstBtn;
         public Form1()
         {
             InitializeComponent();
@@ -91,14 +92,19 @@ namespace Dame2._0
             
             String bauer = "";
             String temp = "";
-            
-            
+
+
             if ("bauerblau" == btn.Tag | "bauerrot" == btn.Tag && bauer != "")
             {
                 Debug.WriteLine(btn.Tag);
                 bauer = Convert.ToString(btn.Tag);
-                first_btn++;
-            }
+                if (firstBtn == null)
+                {
+                    firstBtn = (Button) sender;
+                }
+                
+            
+        }
             else
             {
                 if (bauer == "bauerblau")
@@ -111,7 +117,7 @@ namespace Dame2._0
                 }
 
                 btn.Tag = "black";
-                first_btn = 0;
+                firstBtn = null;
                 btn.BackColor = Color.Black;
                 
             }
