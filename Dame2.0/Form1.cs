@@ -14,6 +14,7 @@ namespace Dame2._0
     public partial class Form1 : Form
     {
         private static Button firstBtn;
+        private static string bauer;
         public Form1()
         {
             InitializeComponent();
@@ -90,36 +91,46 @@ namespace Dame2._0
             Debug.WriteLine("Button gedrückt");
             Debug.WriteLine(btn.Name);
             
-            String bauer = "";
+            
             String temp = "";
 
 
-            if ("bauerblau" == btn.Tag | "bauerrot" == btn.Tag && bauer != "")
+            if ("bauerblau" == btn.Tag | "bauerrot" == btn.Tag)
             {
                 Debug.WriteLine(btn.Tag);
-                bauer = Convert.ToString(btn.Tag);
+                
                 if (firstBtn == null)
                 {
+                    
+                    Debug.WriteLine(firstBtn);
                     firstBtn = (Button) sender;
+                    bauer = Convert.ToString(btn.Tag);
                 }
                 
             
-        }
+            }
             else
             {
                 if (bauer == "bauerblau")
                 {
                     btn.Image = Properties.Resources.bauerblau;
+                    firstBtn = null;
+                    btn.Tag = "bauerblau";
+                    bauer = "";
                 }
                 if (bauer == "bauerrot")
                 {
                     btn.Image = Properties.Resources.bauerrot;
+                    firstBtn = null;
+                    bauer = "";
+                    btn.Tag = "bauerrot";
                 }
 
-                btn.Tag = "black";
-                firstBtn = null;
-                btn.BackColor = Color.Black;
-                
+             //   btn.Tag = "black";
+             //   firstBtn = null;
+              //  btn.BackColor = Color.Black;
+             //   btn.Image = null;
+
             }
 
 
