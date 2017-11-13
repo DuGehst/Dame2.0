@@ -94,9 +94,9 @@ namespace Dame2._0
             Debug.WriteLine("Button gedrückt");
             Debug.WriteLine(btn.Name);
             int rw = 0;
+            
 
-
-            if ("bauerblau" == Convert.ToString(btn.Tag) | "bauerrot" == Convert.ToString(btn.Tag))
+            if ("bauerblau" == Convert.ToString(btn.Tag) | "bauerrot" == Convert.ToString(btn.Tag) | "damerot" == btn.Tag | "dameblau" == btn.Tag)
             {
                 Debug.WriteLine(btn.Tag);
 
@@ -146,7 +146,7 @@ namespace Dame2._0
                         btn.Tag = "bauerblau";
                     }
                     //Ist dies ein Angriff?
-                    if (Convert.ToString(rw + 18) == btn.Name && buttons[rw + 9].Tag != bauer)
+                    if (Convert.ToString(rw + 18) == btn.Name && buttons[rw + 9].Tag == "bauerrot" || buttons[rw+9].Tag == "damerot")
                     {
                         //alten Bauer entfernen
                         firstBtn.Image = null;
@@ -161,7 +161,7 @@ namespace Dame2._0
                         buttons[rw + 9].Tag = "Black";
 
                     }//Ist dies ein Angriff?
-                    if (Convert.ToString(rw + 14) == btn.Name && buttons[rw + 7].Tag != bauer)
+                    if (Convert.ToString(rw + 14) == btn.Name && buttons[rw + 7].Tag == "bauerrot" || buttons[rw + 7].Tag == "damerot")
                     {
                         //alten Bauer entfernen
                         firstBtn.Image = null;
@@ -204,7 +204,7 @@ namespace Dame2._0
                     }
 
                     //Ist dies ein Angriff?
-                    if (Convert.ToString(rw - 18) == btn.Name && buttons[rw - 9].Tag != bauer)
+                    if (Convert.ToString(rw - 18) == btn.Name && buttons[rw - 9].Tag == "bauerblau" || buttons[rw - 9].Tag == "dameblau")
                     {
                         //alten Bauer entfernen
                         firstBtn.Image = null;
@@ -219,7 +219,7 @@ namespace Dame2._0
                         buttons[rw - 9].Tag = "Black";
 
                     }//Ist dies ein Angriff?
-                    if (Convert.ToString(rw - 14) == btn.Name && buttons[rw - 7].Tag != bauer)
+                    if (Convert.ToString(rw - 14) == btn.Name && buttons[rw - 7].Tag == "bauerblau" || buttons[rw - 7].Tag == "dameblau")
                     {
                         //alten Bauer entfernen
                         firstBtn.Image = null;
