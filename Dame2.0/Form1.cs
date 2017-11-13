@@ -15,7 +15,7 @@ namespace Dame2._0
     public partial class Form1 : Form
     {
         private static Button firstBtn;
-        private static string bauer;
+        private static string spielstein;
         Button[] buttons = new Button[64];
         public Form1()
         {
@@ -94,9 +94,9 @@ namespace Dame2._0
             Debug.WriteLine("Button gedrückt");
             Debug.WriteLine(btn.Name);
             int rw = 0;
-            
 
-            if ("bauerblau" == Convert.ToString(btn.Tag) | "bauerrot" == Convert.ToString(btn.Tag) | "damerot" == btn.Tag | "dameblau" == btn.Tag)
+
+            if ("bauerblau" == Convert.ToString(btn.Tag) | "bauerrot" == Convert.ToString(btn.Tag) | "damerot" == Convert.ToString(btn.Tag) | "dameblau" == Convert.ToString(btn.Tag))
             {
                 Debug.WriteLine(btn.Tag);
 
@@ -105,14 +105,14 @@ namespace Dame2._0
 
                     Debug.WriteLine(firstBtn);
                     firstBtn = (Button)sender;
-                    bauer = Convert.ToString(btn.Tag);
+                    spielstein = Convert.ToString(btn.Tag);
 
                 }
                 else if (firstBtn == (Button)sender)
                 {
                     //doppelte auswahl des gleichen Steins führt zur abwahl
                     firstBtn = null;
-                    bauer = null;
+                    spielstein = null;
                     return;
                 }
             }
@@ -122,37 +122,37 @@ namespace Dame2._0
                 {
                     rw = Convert.ToInt32(firstBtn.Name);
                 }
-                if (bauer == "bauerblau")
+                if (spielstein == "bauerblau")
                 {
                     //Hier wird die Bewegung eingeschränkt                    
                     if (Convert.ToString(rw + 9) == btn.Name)
                     {
-                        //alten Bauer entfernen
+                        //alten spielstein entfernen
                         firstBtn.Image = null;
                         firstBtn.Tag = "Black";
 
-                        //neuen Bauer einsetzen
+                        //neuen spielstein einsetzen
                         btn.Image = Properties.Resources.bauerblau;
                         btn.Tag = "bauerblau";
                     }
                     if (btn.Name == Convert.ToString(rw + 7))
                     {
-                        //alten Bauer entfernen
+                        //alten spielstein entfernen
                         firstBtn.Image = null;
                         firstBtn.Tag = "Black";
 
-                        //neuen Bauer einsetzen
+                        //neuen spielstein einsetzen
                         btn.Image = Properties.Resources.bauerblau;
                         btn.Tag = "bauerblau";
                     }
                     //Ist dies ein Angriff?
-                    if (Convert.ToString(rw + 18) == btn.Name && buttons[rw + 9].Tag == "bauerrot" || buttons[rw+9].Tag == "damerot")
+                    if (Convert.ToString(rw + 18) == btn.Name && buttons[rw + 9].Tag == "bauerrot" || buttons[rw + 9].Tag == "damerot")
                     {
-                        //alten Bauer entfernen
+                        //alten spielstein entfernen
                         firstBtn.Image = null;
                         firstBtn.Tag = "Black";
 
-                        //neuen Bauer einsetzen
+                        //neuen spielstein einsetzen
                         btn.Image = Properties.Resources.bauerblau;
                         btn.Tag = "bauerblau";
 
@@ -163,11 +163,11 @@ namespace Dame2._0
                     }//Ist dies ein Angriff?
                     if (Convert.ToString(rw + 14) == btn.Name && buttons[rw + 7].Tag == "bauerrot" || buttons[rw + 7].Tag == "damerot")
                     {
-                        //alten Bauer entfernen
+                        //alten spielstein entfernen
                         firstBtn.Image = null;
                         firstBtn.Tag = "Black";
 
-                        //neuen Bauer einsetzen
+                        //neuen spielstein einsetzen
                         btn.Image = Properties.Resources.bauerblau;
                         btn.Tag = "bauerblau";
 
@@ -175,30 +175,44 @@ namespace Dame2._0
                         buttons[rw + 7].Image = null;
                         buttons[rw + 7].Tag = "Black";
                     }
-                    //zurücksetzen der Variabeln
+                    //zurücksetzen der Variabeln + prüfen auf dame
+                    switch (Convert.ToInt64(btn.Name))
+                    {
+                        case 56:
+                        case 58:
+                        case 60:
+                        case 62:
+                            btn.Image = Properties.Resources.dameblau;
+                            btn.Tag = "dameblau";
+                            break;
+                    }
                     firstBtn = null;
-                    bauer = "";
+                    spielstein = "";
                 }
-                if (bauer == "bauerrot")
+                if (spielstein == "dameblau")
+                {
+
+                }
+                if (spielstein == "bauerrot")
                 {
                     if (Convert.ToString(rw - 9) == btn.Name)
                     {
-                        //alten Bauer entfernen
+                        //alten spielstein entfernen
                         firstBtn.Image = null;
                         firstBtn.Tag = "Black";
 
-                        //neuen Bauer einsetzen
+                        //neuen spielstein einsetzen
                         btn.Image = Properties.Resources.bauerrot;
                         btn.Tag = "bauerrot";
                     }
 
                     if (Convert.ToString(rw - 7) == btn.Name)
                     {
-                        //alten Bauer entfernen
+                        //alten spielstein entfernen
                         firstBtn.Image = null;
                         firstBtn.Tag = "Black";
 
-                        //neuen Bauer einsetzen
+                        //neuen spielstein einsetzen
                         btn.Image = Properties.Resources.bauerrot;
                         btn.Tag = "bauerrot";
                     }
@@ -206,11 +220,11 @@ namespace Dame2._0
                     //Ist dies ein Angriff?
                     if (Convert.ToString(rw - 18) == btn.Name && buttons[rw - 9].Tag == "bauerblau" || buttons[rw - 9].Tag == "dameblau")
                     {
-                        //alten Bauer entfernen
+                        //alten spielstein entfernen
                         firstBtn.Image = null;
                         firstBtn.Tag = "Black";
 
-                        //neuen Bauer einsetzen
+                        //neuen spielstein einsetzen
                         btn.Image = Properties.Resources.bauerrot;
                         btn.Tag = "bauerrot";
 
@@ -221,11 +235,11 @@ namespace Dame2._0
                     }//Ist dies ein Angriff?
                     if (Convert.ToString(rw - 14) == btn.Name && buttons[rw - 7].Tag == "bauerblau" || buttons[rw - 7].Tag == "dameblau")
                     {
-                        //alten Bauer entfernen
+                        //alten spielstein entfernen
                         firstBtn.Image = null;
                         firstBtn.Tag = "Black";
 
-                        //neuen Bauer einsetzen
+                        //neuen spielstein einsetzen
                         btn.Image = Properties.Resources.bauerrot;
                         btn.Tag = "bauerrot";
 
@@ -233,9 +247,24 @@ namespace Dame2._0
                         buttons[rw - 7].Image = null;
                         buttons[rw - 7].Tag = "Black";
                     }
-                    //zurücksetzen der Variabeln
-                    bauer = "";
+                    //zurücksetzen der Variabeln + prüfen auf dame
+                    switch (Convert.ToInt64(btn.Name))
+                    {
+                        case 1:
+                        case 3:
+                        case 5:
+                        case 7:
+                            btn.Image = Properties.Resources.damerot;
+                            btn.Tag = "damerot";
+                            break;
+
+                    }
+                    spielstein = "";
                     firstBtn = null;
+
+                }
+                if (spielstein == "damerot")
+                {
 
                 }
             }
