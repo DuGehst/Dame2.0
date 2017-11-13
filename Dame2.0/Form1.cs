@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows;
 
 namespace Dame2._0
 {
@@ -15,10 +16,11 @@ namespace Dame2._0
     {
         private static Button firstBtn;
         private static string bauer;
+        Button[] buttons = new Button[64];
         public Form1()
         {
             InitializeComponent();
-            Button[] buttons = new Button[64]; //als Feld deklarieren!
+
 
             /* ... */
             int y = 0;
@@ -26,16 +28,18 @@ namespace Dame2._0
             int zeile = 1;
             int j = 0;
             int ergebnis = 0;
-            
-            
-            for (int i = 0; i < buttons.Length; i++) //im Konstruktor der Form nach InitializeComponent() aufrufen
+
+
+            for (int i = 0; i < buttons.Length; i++)
             {
-                
+
 
                 buttons[i] = new Button();
                 buttons[i].Left = x;
                 buttons[i].Top = y;
                 buttons[i].Name = Convert.ToString(i);
+                //Text nur während der Testens relevant
+                buttons[i].Text = Convert.ToString(i);
                 buttons[i].MouseClick += BtnClick;
                 ergebnis = x / 80;
                 if ((zeile % 2 == 0 & ergebnis % 2 == 0) | zeile % 2 != 0 & ergebnis % 2 != 0)
@@ -59,9 +63,9 @@ namespace Dame2._0
                     buttons[i].BackColor = Color.White;
                     buttons[i].Enabled = false;
                 }
-                
-               
-              
+
+
+
                 buttons[i].Height = 80;
                 buttons[i].Width = 80;
                 buttons[i].Parent = this;
@@ -82,73 +86,159 @@ namespace Dame2._0
             }
         }
 
-        
 
 
-        private void BtnClick(object sender, EventArgs e)
+        public void BtnClick(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
             Debug.WriteLine("Button gedrückt");
             Debug.WriteLine(btn.Name);
-            
-            
-            String temp = "";
+            int rw = 0;
 
 
-            if ("bauerblau" == btn.Tag | "bauerrot" == btn.Tag)
+            if ("bauerblau" == Convert.ToString(btn.Tag) | "bauerrot" == Convert.ToString(btn.Tag))
             {
                 Debug.WriteLine(btn.Tag);
-                
+
                 if (firstBtn == null)
                 {
-                    
+
                     Debug.WriteLine(firstBtn);
-                    firstBtn = (Button) sender;
+                    firstBtn = (Button)sender;
                     bauer = Convert.ToString(btn.Tag);
+
                 }
-                
-            
+                else if (firstBtn == (Button)sender)
+                {
+                    //doppelte auswahl des gleichen Steins führt zur abwahl
+                    firstBtn = null;
+                    bauer = null;
+                    return;
+                }
             }
             else
             {
+                if (firstBtn != null)
+                {
+                    rw = Convert.ToInt32(firstBtn.Name);
+                }
                 if (bauer == "bauerblau")
                 {
-                    //alten Bauer entfernen
-                    firstBtn.Image = null;
-                    firstBtn.Tag = "Black";
+                    //Hier wird die Bewegung eingeschränkt                    
+                    if (Convert.ToString(rw + 9) == btn.Name)
+                    {
+                        //alten Bauer entfernen
+                        firstBtn.Image = null;
+                        firstBtn.Tag = "Black";
 
-                    //neuen Bauer einsetzen
-                    btn.Image = Properties.Resources.bauerblau;
-                    btn.Tag = "bauerblau";
+                        //neuen Bauer einsetzen
+                        btn.Image = Properties.Resources.bauerblau;
+                        btn.Tag = "bauerblau";
+                    }
+                    if (btn.Name == Convert.ToString(rw + 7))
+                    {
+                        //alten Bauer entfernen
+                        firstBtn.Image = null;
+                        firstBtn.Tag = "Black";
 
+                        //neuen Bauer einsetzen
+                        btn.Image = Properties.Resources.bauerblau;
+                        btn.Tag = "bauerblau";
+                    }
+                    //Ist dies ein Angriff?
+                    if (Convert.ToString(rw + 18) == btn.Name && buttons[rw + 9].Tag != bauer)
+                    {
+                        //alten Bauer entfernen
+                        firstBtn.Image = null;
+                        firstBtn.Tag = "Black";
+
+                        //neuen Bauer einsetzen
+                        btn.Image = Properties.Resources.bauerblau;
+                        btn.Tag = "bauerblau";
+
+                        //Figur töten
+                        buttons[rw + 9].Image = null;
+                        buttons[rw + 9].Tag = "Black";
+
+                    }//Ist dies ein Angriff?
+                    if (Convert.ToString(rw + 14) == btn.Name && buttons[rw + 7].Tag != bauer)
+                    {
+                        //alten Bauer entfernen
+                        firstBtn.Image = null;
+                        firstBtn.Tag = "Black";
+
+                        //neuen Bauer einsetzen
+                        btn.Image = Properties.Resources.bauerblau;
+                        btn.Tag = "bauerblau";
+
+                        //Figur töten
+                        buttons[rw + 7].Image = null;
+                        buttons[rw + 7].Tag = "Black";
+                    }
                     //zurücksetzen der Variabeln
-                    firstBtn = null;                   
+                    firstBtn = null;
                     bauer = "";
-                    
                 }
                 if (bauer == "bauerrot")
                 {
-                    //alten Bauer entfernen
-                    firstBtn.Image = null;
-                    firstBtn.Tag = "Black";
+                    if (Convert.ToString(rw - 9) == btn.Name)
+                    {
+                        //alten Bauer entfernen
+                        firstBtn.Image = null;
+                        firstBtn.Tag = "Black";
 
-                    //neuen Bauer einsetzen
-                    btn.Image = Properties.Resources.bauerrot;
-                    firstBtn = null;
+                        //neuen Bauer einsetzen
+                        btn.Image = Properties.Resources.bauerrot;
+                        btn.Tag = "bauerrot";
+                    }
 
+                    if (Convert.ToString(rw - 7) == btn.Name)
+                    {
+                        //alten Bauer entfernen
+                        firstBtn.Image = null;
+                        firstBtn.Tag = "Black";
+
+                        //neuen Bauer einsetzen
+                        btn.Image = Properties.Resources.bauerrot;
+                        btn.Tag = "bauerrot";
+                    }
+
+                    //Ist dies ein Angriff?
+                    if (Convert.ToString(rw - 18) == btn.Name && buttons[rw - 9].Tag != bauer)
+                    {
+                        //alten Bauer entfernen
+                        firstBtn.Image = null;
+                        firstBtn.Tag = "Black";
+
+                        //neuen Bauer einsetzen
+                        btn.Image = Properties.Resources.bauerrot;
+                        btn.Tag = "bauerrot";
+
+                        //Figur töten
+                        buttons[rw - 9].Image = null;
+                        buttons[rw - 9].Tag = "Black";
+
+                    }//Ist dies ein Angriff?
+                    if (Convert.ToString(rw - 14) == btn.Name && buttons[rw - 7].Tag != bauer)
+                    {
+                        //alten Bauer entfernen
+                        firstBtn.Image = null;
+                        firstBtn.Tag = "Black";
+
+                        //neuen Bauer einsetzen
+                        btn.Image = Properties.Resources.bauerrot;
+                        btn.Tag = "bauerrot";
+
+                        //Figur töten
+                        buttons[rw - 7].Image = null;
+                        buttons[rw - 7].Tag = "Black";
+                    }
                     //zurücksetzen der Variabeln
                     bauer = "";
-                    btn.Tag = "bauerrot";
+                    firstBtn = null;
+
                 }
-                
-             
-
             }
-
-
-            
-            
         }
-
     }
 }
