@@ -146,6 +146,11 @@ namespace Dame2._0
                         btn.Tag = "bauerblau";
                     }
                     //Ist dies ein Angriff?
+                    // Exception abfangen für 55 -> 62
+                    if (rw == 55)
+                    {
+                        rw = 54;
+                    }
                     if (Convert.ToString(rw + 18) == btn.Name && buttons[rw + 9].Tag == "bauerrot" || buttons[rw + 9].Tag == "damerot")
                     {
                         //alten spielstein entfernen
@@ -191,7 +196,7 @@ namespace Dame2._0
                 }
                 if (spielstein == "dameblau")
                 {
-
+                    
                 }
                 if (spielstein == "bauerrot")
                 {
@@ -218,6 +223,11 @@ namespace Dame2._0
                     }
 
                     //Ist dies ein Angriff?
+                    //Exception abfangen für 8 -> 1
+                    if (rw == 8)
+                    {
+                        rw = 9;
+                    }                        
                     if (Convert.ToString(rw - 18) == btn.Name && buttons[rw - 9].Tag == "bauerblau" || buttons[rw - 9].Tag == "dameblau")
                     {
                         //alten spielstein entfernen
