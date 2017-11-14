@@ -38,8 +38,6 @@ namespace Dame2._0
                 buttons[i].Left = x;
                 buttons[i].Top = y;
                 buttons[i].Name = Convert.ToString(i);
-                //Text nur während der Testens relevant
-                buttons[i].Text = Convert.ToString(i);
                 buttons[i].MouseClick += BtnClick;
                 ergebnis = x / 80;
                 if ((zeile % 2 == 0 & ergebnis % 2 == 0) | zeile % 2 != 0 & ergebnis % 2 != 0)
@@ -85,7 +83,6 @@ namespace Dame2._0
                 }
             }
         }
-
 
 
         public void BtnClick(object sender, EventArgs e)
@@ -196,7 +193,38 @@ namespace Dame2._0
                 }
                 if (spielstein == "dameblau")
                 {
-                    
+                    //Dame Bewegungsoptionen
+                    int diagonal1 = 9;
+                    int diagonal2 = 7;
+                    bool betrue = false;
+                    //Bewegung oben links
+                    while (Convert.ToInt32(firstBtn.Name) - diagonal1 != Convert.ToInt32(btn.Name))
+                    {
+                        if (buttons[Convert.ToInt32(firstBtn.Name) - diagonal1].Tag == "Black")
+                        {
+                            betrue = true;      
+                        }
+                        else
+                        {
+                            betrue = false;
+                        }
+                        
+                        diagonal1 = diagonal1 + 9;
+
+                        
+                    }
+                    if (betrue == true)
+                    {
+                        //alten spielstein entfernen
+                        firstBtn.Image = null;
+                        firstBtn.Tag = "Black";
+
+                        //neuen spielstein einsetzen
+                        btn.Image = Properties.Resources.dameblau;
+                        btn.Tag = "dameblau";
+                    }
+                    spielstein = "";
+                    firstBtn = null;
                 }
                 if (spielstein == "bauerrot")
                 {
@@ -275,7 +303,8 @@ namespace Dame2._0
                 }
                 if (spielstein == "damerot")
                 {
-
+                    spielstein = "";
+                    firstBtn = null;
                 }
             }
         }
